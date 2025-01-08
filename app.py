@@ -45,7 +45,7 @@ def hello():
             // Uruchamianie funkcji co 1 sekundę
             setInterval(updateClock, 1000);
 
-            // Natychmiastowe wyświetlenie godziny po załadowaniu strony
+            // Natychmiastowe wyświetlenie godziny po załadowaniu stronyaaa
             updateClock();
         </script>
     </body>
