@@ -22,13 +22,11 @@ jobs:
           # Dodajemy klucz hosta do known_hosts (z użyciem ssh-keyscan).
           ssh-keyscan -p 51943 -H 91.228.198.167 >> ~/.ssh/known_hosts
 
-      # 3. Kopiowanie plików na zdalny serwer
+      # 3. Kopiowanie plików na zdalny serwer z pominięciem .git
       - name: Copy code to server
         run: |
-          scp -r -i ~/.ssh/id_rsa \
-              -P 51943 \
-              -o StrictHostKeyChecking=no \
-              . turbo@91.228.198.167:/var/www/ppdf
+          rsync -avz --exclude='.git' -e "ssh -i ~/.ssh/id_rsa -p 51943" \
+            . turbo@91.228.198.167:/var/www/ppdf
 
       # 4. Uruchomienie skryptu 'deploy.sh' na serwerze
       - name: Remote deploy
