@@ -1,0 +1,36 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Pobierz repozytorium
+      - uses: actions/checkout@v3
+
+      # 2. Utwórz katalog .ssh i wprowadź klucz prywatny z GitHub Secrets
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      # 3. Skopiuj kod na serwer (port 51943) z użyciem klucza
+      - name: Copy code to server
+        run: |
+          scp -i ~/.ssh/id_rsa \
+              -o StrictHostKeyChecking=no \
+              -P 51943 \
+              -r . turbo@91.228.198.167:/var/www/ppdf
+
+      # 4. Uruchom skrypt deploy na zdalnym serwerze (port 51943) z użyciem klucza
+      - name: Remote deploy
+        run: |
+          ssh -i ~/.ssh/id_rsa \
+              -o StrictHostKeyChecking=no \
+              -p 51943 \
+              turbo@91.228.198.167 \
+              "cd /var/www/ppdf && ./deploy.sh"
