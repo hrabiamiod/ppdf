@@ -3,34 +3,40 @@ name: Deploy
 on:
   push:
     branches: [ "main" ]
+  # Możesz też dodać on: workflow_dispatch, jeśli chcesz uruchamiać ręcznie:
+  # workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    
     steps:
-      # 1. Pobierz repozytorium
-      - uses: actions/checkout@v3
+      # 1. Pobranie kodu z repo
+      - name: Check out the repository
+        uses: actions/checkout@v3
 
-      # 2. Utwórz katalog .ssh i wprowadź klucz prywatny z GitHub Secrets
+      # 2. Konfiguracja klucza SSH
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          # Dodajemy klucz hosta do known_hosts (z użyciem ssh-keyscan).
+          ssh-keyscan -p 51943 -H 91.228.198.167 >> ~/.ssh/known_hosts
 
-      # 3. Skopiuj kod na serwer (port 51943) z użyciem klucza
+      # 3. Kopiowanie plików na zdalny serwer
       - name: Copy code to server
         run: |
-          scp -i ~/.ssh/id_rsa \
-              -o StrictHostKeyChecking=no \
+          scp -r -i ~/.ssh/id_rsa \
               -P 51943 \
-              -r . turbo@91.228.198.167:/var/www/ppdf
+              -o StrictHostKeyChecking=no \
+              . turbo@91.228.198.167:/var/www/ppdf
 
-      # 4. Uruchom skrypt deploy na zdalnym serwerze (port 51943) z użyciem klucza
+      # 4. Uruchomienie skryptu 'deploy.sh' na serwerze
       - name: Remote deploy
         run: |
           ssh -i ~/.ssh/id_rsa \
-              -o StrictHostKeyChecking=no \
               -p 51943 \
+              -o StrictHostKeyChecking=no \
               turbo@91.228.198.167 \
               "cd /var/www/ppdf && ./deploy.sh"
