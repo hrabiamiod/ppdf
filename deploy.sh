@@ -26,4 +26,8 @@ pip install -r requirements.txt
 echo "Restarting systemd service..."
 sudo systemctl restart myflaskapp
 
+source venv/bin/activate
+python app.py
+
+
 echo "=== Deployment zakończony pomyślnie! ==="
