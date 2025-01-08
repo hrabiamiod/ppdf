@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e3d78e3c-e26e-4fa8-a805-c7eefa393b6a" name="Changes" comment="next one" />
+    <list default="true" id="e3d78e3c-e26e-4fa8-a805-c7eefa393b6a" name="Changes" comment="next one">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/ppdf.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ppdf.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

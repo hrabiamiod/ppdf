@@ -3,8 +3,6 @@ name: Deploy
 on:
   push:
     branches: [ "main" ]
-  # Możesz też dodać on: workflow_dispatch, jeśli chcesz uruchamiać ręcznie:
-  # workflow_dispatch:
 
 jobs:
   deploy:
