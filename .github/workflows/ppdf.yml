@@ -37,4 +37,4 @@ jobs:
               -p 51943 \
               -o StrictHostKeyChecking=no \
               turbo@91.228.198.167 \
-              "sudo cd /var/www/ppdf && sudo ./deploy.sh"
+              "cd /var/www/ppdf && ./deploy.sh"
