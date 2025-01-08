@@ -15,7 +15,7 @@ def hello():
         <!-- Powoduje automatyczne odświeżanie strony co 1s, aby czas się aktualizował -->
       </head>
       <body style="font-family: sans-serif;">
-        <h1>Witaj na mojej stronie!</h1>
+        <h1>Witaj na mojej stronie! Teraz jest po update</h1>
         <h3>Aktualny czas: {now}</h3>
       </body>
     </html>
