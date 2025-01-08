@@ -8,16 +8,47 @@ app = Flask(__name__)
 def hello():
     # Pobierz aktualny czas
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    return f"""
-    <html>
-      <head>
-        <meta http-equiv="refresh" content="1">
-        <!-- Powoduje automatyczne odświeżanie strony co 1s, aby czas się aktualizował -->
-      </head>
-      <body style="font-family: sans-serif;">
-        <h1>Witaj na mojej stronie! Teraz jest po update 2</h1>
-        <h3>Aktualny czas: {now}</h3>
-      </body>
+    return """
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Aktualna godzina</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #f4f4f9;
+            }
+            #clock {
+                font-size: 2em;
+                color: #333;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="clock"></div>
+        <script>
+            function updateClock() {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+            }
+
+            // Uruchamianie funkcji co 1 sekundę
+            setInterval(updateClock, 1000);
+
+            // Natychmiastowe wyświetlenie godziny po załadowaniu strony
+            updateClock();
+        </script>
+    </body>
     </html>
     """
 
